@@ -1,3 +1,4 @@
+local helpers = require("git_changed.helpers")
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local plenary_path = require "plenary.path"
@@ -18,7 +19,7 @@ local git_status = function(path)
     local res = {}
     for line in f:lines() do
         local p = string.gsub(line, ".+%s", "")
-        local as_path = plenary_path:new(p)
+        local as_path = plenary_path:new(path, p)
         table.insert(res, as_path:absolute())
     end
     return res
@@ -32,7 +33,7 @@ git_changed.changed_files = function(opts)
     pickers.new(opts, {
         prompt_title = "edited files",
         finder = finders.new_table {
-            results = git_status(vim.fn.getcwd())
+            results = git_status(helpers.current_buffer_working_dir())
         },
         sorter = conf.generic_sorter(opts),
     }):find()
