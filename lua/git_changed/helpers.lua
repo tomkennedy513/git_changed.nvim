@@ -1,6 +1,10 @@
 local helpers = {}
 
 helpers.dirname = function(path)
+    if path == "" then
+        return vim.fn.getcwd()
+    end
+
     local dir = path:match("(.*[/\\])")
     if string.sub(dir, -1, -1) == "/" then
         dir = string.sub(dir, 1, -2)
