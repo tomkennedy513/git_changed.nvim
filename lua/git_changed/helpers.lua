@@ -3,6 +3,8 @@ local helpers = {}
 helpers.dirname = function(path)
     if path == "" then
         return vim.fn.getcwd()
+    elseif string.sub(path, 1, 6) == "oil://" then
+        return string.sub(path, 7, -2)
     end
 
     local dir = path:match("(.*[/\\])")
