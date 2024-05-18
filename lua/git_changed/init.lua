@@ -31,7 +31,7 @@ git_changed.changed_files = function(opts)
         winblend = 10,
     })
     pickers.new(opts, {
-        prompt_title = "edited files",
+        prompt_title = "changed files",
         finder = finders.new_table {
             results = git_status(helpers.current_buffer_working_dir())
         },
